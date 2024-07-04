@@ -6,6 +6,7 @@ const ispData = document.getElementById("isp-data");
 const dataOutputs = document.querySelectorAll(".data-text");
 
 const quay = "at_dFEB2bZjPmuuLwPByNMuw3uQ3DazF";
+var map;
 
 
 async function getGeolocationData(input) {
@@ -35,14 +36,40 @@ async function displayData(input) {
 
     if (geoData) {
         dataOutputs.forEach((el) => el.style.display = "block");
+
         ipAddress.textContent = geoData.ip;
         const loc = `${geoData.location.city}, ${geoData.location.region} ${geoData.location.postalCode} ${geoData.location.country}`;
         locationData.textContent = loc;
         timezone.textContent = `UTC ${geoData.location.timezone}`;
         ispData.textContent = geoData.isp;
+
+        showMap(geoData.location.lat, geoData.location.lng);
+
     } else {
         textInput.classList.add("input-error");
     }
+}
+
+
+function showMap(lat, lng) {
+    if (map) {
+        map = map.off();
+        map = map.remove();
+    }
+
+    map = L.map('map').setView([lat, lng], 13);
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    }).addTo(map);
+
+    var myIcon = L.icon({
+        iconUrl: 'images/icon-location.svg',
+        iconSize: [46, 56]
+    });
+
+    L.marker([lat, lng], { icon: myIcon }).addTo(map);
 }
 
 
@@ -80,30 +107,17 @@ textInput.addEventListener("input", function () {
     this.classList.remove("input-error");
 })
 
-
-// location
-// :
-// city
-// :
-// "South Beach"
-// country
-// :
-// "US"
-// geonameId
-// :
-// 5326621
-// lat
-// :
-// 37.78298
-// lng
-// :
-// -122.38969
-// postalCode
-// :
-// ""
-// region
-// :
-// "California"
-// timezone
-// :
-// "-07:00"
+// Json data format
+// ip: "192.168.155.155"
+// isp: "Amazon"
+// location:
+// {
+//  city: "South Beach"
+//  country: "US"
+//  geonameId: 5326621
+//  lat: 37.78298
+//  lng: -122.38969
+//  postalCode: ""
+//  region: "California"
+//  timezone: "-07:00"
+// }
