@@ -15,29 +15,29 @@
   <header>
     <h1>IP Address Tracker</h1>
 
-    <div class="search-wrapper">
-      <input type="text" name="address" id="address" placeholder="Search for any IP address or domain">
-      <button class="search-btn" type="button">
+    <form class="search-wrapper">
+      <input type="search" name="address" id="address" placeholder="Search for any IP address or domain">
+      <button class="search-btn" type="submit">
         <img width="10" src="images/icon-arrow.svg" alt=">">
       </button>
-    </div>
+    </form>
 
     <div class="data-outer">
       <div class="data-wrapper ip-address">
         IP Address
-        <div id="ip-address-data" class="data-text">192.212.174.101</div>
+        <div id="ip-address-data" class="data-text"></div>
       </div>
       <div class="data-wrapper location">
         Location
-        <div id="location-data" class="data-text">Brooklyn, NY 10001</div>
+        <div id="location-data" class="data-text"></div>
       </div>
       <div class="data-wrapper timezone">
         Timezone
-        <div id="timezone-data" class="data-text"><span>UTC -05:00</span></div>
+        <div id="timezone-data" class="data-text"></div>
       </div>
       <div class="data-wrapper isp">
         ISP
-        <div id="isp-data" class="data-text">SpaceX Starlink</div>
+        <div id="isp-data" class="data-text"></div>
       </div>
     </div>
   </header>
